@@ -159,18 +159,17 @@ class Nibbles:
             curses.A_REVERSE | curses.A_BOLD | curses.color_pair(3)))
         self.dashboard.addstr(1, 15, 'speed: %s' % self.speed, (
             curses.A_REVERSE | curses.A_BOLD | curses.color_pair(3)))
-        while True:
-            c = self.playboard.getch()
-            self.change_direction(c)
-            self.move_forward()
-            try:
+        try:
+            while True:
+                c = self.playboard.getch()
+                self.change_direction(c)
+                self.move_forward()
                 self.judge()
-            except:
-                break
-            self.playboard.refresh()
-            self.dashboard.refresh()
-            time.sleep(0.1 / self.speed)
-        self.quit()
+                self.playboard.refresh()
+                self.dashboard.refresh()
+                time.sleep(0.1 / self.speed)
+        except:
+            return
 
     def pause(self):
         self.playboard.nodelay(0)
@@ -181,8 +180,7 @@ class Nibbles:
                 return
 
     def quit(self):
-        import sys
-        sys.exit(0)
+        raise Exception()
 
 def main():
     curses.wrapper(Nibbles)
