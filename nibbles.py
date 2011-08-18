@@ -21,24 +21,16 @@ class Nibbles:
     def change_direction(self, c):
         d = self.nibbles[0][-1]
         if (c == ord('h')) or (c == curses.KEY_LEFT):
-            if d == 'left' or d == 'right':
-                pass
-            else:
+            if  d == 'up' or d == 'down':
                 self.nibbles[0][-1] = 'left'
         elif (c == ord('j')) or (c == curses.KEY_DOWN):
-            if  d == 'up' or d == 'down':
-                pass
-            else:
+            if d == 'left' or d == 'right':
                 self.nibbles[0][-1] = 'down'
         elif (c == ord('k')) or (c == curses.KEY_UP):
-            if d == 'up' or d == 'down':
-                pass
-            else:
+            if d == 'left' or d == 'right':
                 self.nibbles[0][-1] = 'up'
         elif (c == ord('l')) or (c == curses.KEY_RIGHT):
-            if d == 'left' or d == 'right':
-                pass
-            else:
+            if d == 'up' or d == 'down':
                 self.nibbles[0][-1] = 'right'
         elif c == ord('q'):
             self.quit()
@@ -84,8 +76,8 @@ class Nibbles:
             else:
                 flag = False
             self.apple = [x, y]
-            self.playboard.addstr(self.apple[1], self.apple[0], '*', (
-                curses.A_BOLD | curses.color_pair(2)))
+            self.playboard.addstr(self.apple[1], self.apple[0], '*',
+                (curses.A_BOLD | curses.color_pair(2)))
     
     def judge(self):
         x, y, d = self.nibbles[0][0], self.nibbles[0][1], self.nibbles[0][2]
@@ -93,10 +85,10 @@ class Nibbles:
         if x == self.apple[0] and y == self.apple[1]:
             self.score += 1
             self.speed = (self.score / 10) + 1;
-            self.dashboard.addstr(1, 3, 'score: %s' % self.score, (
-                curses.A_REVERSE | curses.A_BOLD | curses.color_pair(3)))
-            self.dashboard.addstr(1, 15, 'speed: %s' % self.speed, (
-                curses.A_REVERSE | curses.A_BOLD | curses.color_pair(3)))
+            self.dashboard.addstr(1, 3, 'score: %s' % self.score,
+                (curses.A_REVERSE | curses.A_BOLD | curses.color_pair(3)))
+            self.dashboard.addstr(1, 15, 'speed: %s' % self.speed,
+                (curses.A_REVERSE | curses.A_BOLD | curses.color_pair(3)))
             if d == 'up':
                 self.nibbles.insert(0, [x, y-1, d])
                 self.playboard.addstr(self.nibbles[0][1], self.nibbles[0][0],
@@ -151,14 +143,14 @@ class Nibbles:
         y, x = self.playboard.getmaxyx()
         self.apple = [int(x/2), int(y/2)]
         self.nibbles.append([int(x/4), int(y/2), 'right'])
-        self.playboard.addstr(self.apple[1], self.apple[0], '*', (
-            curses.A_BOLD | curses.color_pair(2)))
-        self.playboard.addstr(self.nibbles[0][1], self.nibbles[0][0], '>', (
-            curses.A_BOLD | curses.color_pair(1)))
-        self.dashboard.addstr(1, 3, 'score: %s' % self.score, (
-            curses.A_REVERSE | curses.A_BOLD | curses.color_pair(3)))
-        self.dashboard.addstr(1, 15, 'speed: %s' % self.speed, (
-            curses.A_REVERSE | curses.A_BOLD | curses.color_pair(3)))
+        self.playboard.addstr(self.apple[1], self.apple[0], '*',
+            (curses.A_BOLD | curses.color_pair(2)))
+        self.playboard.addstr(self.nibbles[0][1], self.nibbles[0][0], '>',
+            (curses.A_BOLD | curses.color_pair(1)))
+        self.dashboard.addstr(1, 3, 'score: %s' % self.score,
+            (curses.A_REVERSE | curses.A_BOLD | curses.color_pair(3)))
+        self.dashboard.addstr(1, 15, 'speed: %s' % self.speed,
+            (curses.A_REVERSE | curses.A_BOLD | curses.color_pair(3)))
         try:
             while True:
                 c = self.playboard.getch()
