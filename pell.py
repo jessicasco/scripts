@@ -2,6 +2,8 @@
 import math
 import fractions
 def fundamental(n):
+    """Find a fundamental solution to pell equation. 
+    Use the continous fraction form of a square root"""
     r = math.sqrt(n)
     result = [int(r)]
     r = 1 / (r - result[-1])
@@ -18,6 +20,8 @@ def fundamental(n):
             return a, b
 
 def pell(n):
+    """Solutions to the standard form of a pell equation. 
+    That is a^2 -db^2 = 1"""
     a1, b1 = fundamental(n)
     a, b =  a1, b1
     while True:
@@ -25,6 +29,8 @@ def pell(n):
         a, b = a1*a + n*b1*b, a1*b + b1*a
 
 def pell_k(n, k, x, y):
+    """Solutions to the expension form of a pell equation.
+    That is a^2 -db^2 = k(k != 1)"""
     a1, b1 = fundamental(n)
     while True:
         yield x, y
@@ -32,7 +38,9 @@ def pell_k(n, k, x, y):
 
 
 def main():
-    """a lib for pell equation"""
+    """test cases"""
+
+    # test case 1
     print "x^2 - 2 * y^2 = 1"
     for a, b in pell(2):
         assert a*a - 2*b*b == 1
@@ -41,6 +49,7 @@ def main():
             break
     print
 
+    # test case 2
     print "x^2 - 3 * y^2 = 1"
     for a, b in pell(3):
         assert a*a - 3*b*b == 1
@@ -49,6 +58,7 @@ def main():
             break
     print
 
+    # test case 3
     print "x^2 - 3 * y^2 = -2"
     for a, b in pell_k(3, -2, 1, 1):
         assert a*a - 3*b*b == -2
